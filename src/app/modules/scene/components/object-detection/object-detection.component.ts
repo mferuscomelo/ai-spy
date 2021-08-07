@@ -16,6 +16,9 @@ export class ObjectDetectionComponent implements OnInit {
   @ViewChild('canvas')
   public canvasElement!: ElementRef<HTMLCanvasElement>;
 
+  loadingMessage = 'Initializing';
+  isLoaded = false;
+
   constructor() {}
 
   ngOnInit(): void {
@@ -29,6 +32,8 @@ export class ObjectDetectionComponent implements OnInit {
 
   async initWebcam() {
     try {
+      this.loadingMessage = 'Starting Webcam';
+
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: false,
         video: { facingMode: 'environment' },
@@ -48,10 +53,13 @@ export class ObjectDetectionComponent implements OnInit {
 
   async startPredictions() {
     try {
+      this.loadingMessage = 'Loading model';
+
       const model = await cocoSSD.load({
-        base: 'mobilenet_v2',
+        base: 'lite_mobilenet_v2',
       });
       console.log('Successfully loaded model');
+      this.isLoaded = true;
       this.parseFrame(this.videoElement.nativeElement, model);
     } catch (error) {
       console.error('Error loading model');

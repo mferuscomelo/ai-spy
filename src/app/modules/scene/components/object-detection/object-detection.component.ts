@@ -56,7 +56,7 @@ export class ObjectDetectionComponent implements OnInit {
       this.loadingMessage = 'Loading model';
 
       const model = await cocoSSD.load({
-        base: 'mobilenet_v2',
+        base: 'lite_mobilenet_v2',
       });
       console.log('Successfully loaded model');
       this.isLoaded = true;

@@ -14,6 +14,7 @@ const routes: Routes = [
         (m) => m.ObjectDetectionModule
       ),
   },
+  { path: 'currency', loadChildren: () => import('./modules/currency-detection/currency-detection.module').then(m => m.CurrencyDetectionModule) },
 ];
 
 @NgModule({

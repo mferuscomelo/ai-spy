@@ -1,3 +1,4 @@
+@import 'partials/theme';
 @import 'partials/typography';
 
 html {font-size: 100%;} /*16px*/
@@ -10,3 +11,5 @@ body {
   color: #000000;
   margin: 0;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

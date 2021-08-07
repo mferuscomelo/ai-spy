@@ -1,11 +1,26 @@
+:host {
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+:host,
+.camera {
+    width: 100%;
+    height: 100%;
+}
+
 canvas {
     display: block;
     max-width: 100vw;
     max-height: 100vh;
     background-color: black;
+    margin: auto;
 }
+
 .camera {
     position: relative;
+    max-width: 100vw;
+    max-height: 100vh;
 }
 
 #loading-dialog {

@@ -4,7 +4,11 @@ import {
   FontAwesomeModule,
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
-import { faCircle } from '@fortawesome/free-regular-svg-icons';
+import {
+  faCheck,
+  faExclamation,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [],
@@ -13,6 +17,6 @@ import { faCircle } from '@fortawesome/free-regular-svg-icons';
 })
 export class IconsModule {
   constructor(faIconLibrary: FaIconLibrary) {
-    faIconLibrary.addIcons(faCircle);
+    faIconLibrary.addIcons(faCheck, faExclamation, faTimes);
   }
 }

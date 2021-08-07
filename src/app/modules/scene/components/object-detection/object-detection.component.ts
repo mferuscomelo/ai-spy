@@ -31,17 +31,18 @@ export class ObjectDetectionComponent implements OnInit {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: false,
-        video: { facingMode: 'user' },
+        video: { facingMode: 'environment' },
       });
 
-      this.videoElement.nativeElement.srcObject = stream;
-      this.videoElement.nativeElement.play();
+      const video = this.videoElement.nativeElement;
+
+      video.srcObject = stream;
+      video.play();
 
       console.log('Successfully started webcam');
-      // this.videoElement.onloadedmetadata = () => {
-      // };
     } catch (error) {
       console.log('Error starting webcam');
+      // TODO: display error message to user
     }
   }
 

@@ -1,2 +1,8 @@
 <video #video hidden></video>
-<canvas #canvas></canvas>
+<div class="camera">
+    <canvas #canvas></canvas>
+    <div id="loading-dialog" *ngIf="!isLoaded">
+        <mat-spinner></mat-spinner>
+        <p class="text-center">{{ loadingMessage }}</p>
+    </div>
+</div>

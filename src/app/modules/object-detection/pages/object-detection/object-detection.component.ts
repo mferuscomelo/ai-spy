@@ -171,7 +171,7 @@ export class ObjectDetectionComponent implements OnInit {
       ctx.fillStyle = '#000000';
       ctx.fillText(prediction.class, x, y);
 
-      if (prediction.class == 'person') {
+      if (prediction.class == this.speechRecognitionService.objectToBeFound) {
         this.foundObject(prediction.class);
       }
     });

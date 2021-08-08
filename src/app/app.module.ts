@@ -8,6 +8,12 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 
+import { AngularFireModule } from '@angular/fire';
+import {
+  AngularFireAnalyticsModule,
+  ScreenTrackingService,
+} from '@angular/fire/analytics';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -21,8 +27,10 @@ import { SharedModule } from './shared/shared.module';
     }),
     BrowserAnimationsModule,
     SharedModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAnalyticsModule,
   ],
-  providers: [],
+  providers: [ScreenTrackingService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -79,6 +79,8 @@ export class ObjectDetectionComponent implements OnInit {
               reject();
             }
           });
+      } else {
+        resolve();
       }
     });
   }

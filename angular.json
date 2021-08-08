@@ -31,7 +31,9 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "styles": ["src/assets/styles/styles.scss"],
+            "styles": [
+              "src/assets/styles/styles.scss"
+            ],
             "scripts": [],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
@@ -100,9 +102,15 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "styles": ["src/assets/styles/styles.scss"],
+            "styles": [
+              "src/assets/styles/styles.scss"
+            ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }

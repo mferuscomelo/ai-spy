@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 declare var webkitSpeechRecognition: any;
 
@@ -9,8 +10,7 @@ export class SpeechRecognitionService {
   recognition: SpeechRecognition;
   objectToBeFound: string = '';
 
-  constructor() {
-    console.log('Hello');
+  constructor(private snackBar: MatSnackBar) {
     this.recognition = new webkitSpeechRecognition();
     this.recognition.lang = 'en-US';
 
@@ -25,6 +25,18 @@ export class SpeechRecognitionService {
       // Check if result is a query
       if (tokenizedResult[0] == 'find') {
         this.objectToBeFound = tokenizedResult.slice(2).join(' ');
+
+        const message = `Finding your ${this.objectToBeFound}`;
+
+        // Voice
+        const msg = new SpeechSynthesisUtterance(message);
+        window.speechSynthesis.speak(msg);
+
+        // Snackbar
+        const alert = this.snackBar.open(message);
+        setTimeout(() => {
+          alert.dismiss();
+        }, 2000);
       }
     };
   }

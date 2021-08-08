@@ -2,5 +2,6 @@
 
 <div class="settings">
     <div #speechRecognitionIcon (mousedown)="startSpeechRecognition()" (mouseup)="endSpeechRecognition()"
-        title="Hold for speech recognition" id="speech-recognition-icon"></div>
+        (touchstart)="startSpeechRecognition()" (touchend)="endSpeechRecognition()" title="Hold for speech recognition"
+        id="speech-recognition-icon"></div>
 </div>

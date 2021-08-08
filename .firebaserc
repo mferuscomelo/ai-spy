@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "seeing-ai"
+  },
+  "targets": {
+    "seeing-ai": {
+      "hosting": {
+        "seeing-ai": [
+          "seeing-ai"
+        ]
+      }
+    }
   }
 }

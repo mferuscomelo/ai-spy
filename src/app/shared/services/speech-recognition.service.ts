@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAnalytics } from '@angular/fire/analytics';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 declare var webkitSpeechRecognition: any;
@@ -10,7 +11,10 @@ export class SpeechRecognitionService {
   recognition: SpeechRecognition;
   objectToBeFound: string = '';
 
-  constructor(private snackBar: MatSnackBar) {
+  constructor(
+    private snackBar: MatSnackBar,
+    private analytics: AngularFireAnalytics
+  ) {
     this.recognition = new webkitSpeechRecognition();
     this.recognition.lang = 'en-US';
 
@@ -37,6 +41,10 @@ export class SpeechRecognitionService {
         setTimeout(() => {
           alert.dismiss();
         }, 2000);
+
+        this.analytics.logEvent('search_for_object', {
+          object_name: this.objectToBeFound,
+        });
       }
     };
   }

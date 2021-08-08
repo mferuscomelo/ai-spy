@@ -6,6 +6,7 @@ import * as cocoSSD from '@tensorflow-models/coco-ssd';
 import { MatDialog } from '@angular/material/dialog';
 import { PermissionsDialogComponent } from '../../components/permissions-dialog/permissions-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SpeechRecognitionService } from 'src/app/shared/services/speech-recognition.service';
 
 @Component({
   selector: 'object-detection',
@@ -24,7 +25,11 @@ export class ObjectDetectionComponent implements OnInit {
   isFound = false;
   icon: 'success' | 'warning' | 'error' = 'error';
 
-  constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {}
+  constructor(
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    public speechRecognitionService: SpeechRecognitionService
+  ) {}
 
   ngOnInit(): void {
     this.initObjectDetection();

@@ -1,4 +1,4 @@
-<status-dialog [icon]="icon"></status-dialog>
+<status-dialog [icon]="icon" *ngIf="speechRecognitionService.objectToBeFound != ''"></status-dialog>
 
 <video #video hidden></video>
 <div class="camera">

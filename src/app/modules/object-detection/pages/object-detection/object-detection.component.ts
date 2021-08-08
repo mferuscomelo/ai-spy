@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PermissionsDialogComponent } from '../../components/permissions-dialog/permissions-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SpeechRecognitionService } from 'src/app/shared/services/speech-recognition.service';
+import { AngularFireAnalytics } from '@angular/fire/analytics';
 
 @Component({
   selector: 'object-detection',
@@ -28,7 +29,8 @@ export class ObjectDetectionComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    public speechRecognitionService: SpeechRecognitionService
+    public speechRecognitionService: SpeechRecognitionService,
+    private analytics: AngularFireAnalytics
   ) {}
 
   ngOnInit(): void {
@@ -189,6 +191,10 @@ export class ObjectDetectionComponent implements OnInit {
 
         const msg = new SpeechSynthesisUtterance(`${label} found`);
         window.speechSynthesis.speak(msg);
+
+        this.analytics.logEvent('found_object', {
+          object_name: label,
+        });
       }
     }, 2000);
   }

@@ -7,14 +7,14 @@
     flex-direction: column;
 }
 
-#shutter-icon {
+#speech-recognition-icon {
     margin: 1rem;
     height: 5rem;
     width: 5rem;
     border-radius: 50%;
     border: 0.5rem solid white;
 
-    &.clicked{
+    &.pressed{
         background-color: white;
     }
 }

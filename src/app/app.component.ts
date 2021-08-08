@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { SpeechRecognitionService } from './shared/services/speech-recognition.service';
 
 @Component({
   selector: 'app-root',
@@ -6,17 +7,22 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  @ViewChild('shutterIcon') shutterIcon!: ElementRef<HTMLElement>;
+  @ViewChild('speechRecognitionIcon')
+  speechRecognitionIcon!: ElementRef<HTMLElement>;
 
-  constructor() {}
+  constructor(private speechRecognitionService: SpeechRecognitionService) {}
 
   ngOnInit(): void {}
 
-  capture() {
-    this.shutterIcon.nativeElement.classList.add('clicked');
+  startSpeechRecognition() {
+    this.speechRecognitionIcon.nativeElement.classList.add('pressed');
+    this.speechRecognitionService.startSpeechRecognition();
     navigator.vibrate(50);
-    setTimeout(() => {
-      this.shutterIcon.nativeElement.classList.remove('clicked');
-    }, 50);
+  }
+
+  endSpeechRecognition() {
+    this.speechRecognitionIcon.nativeElement.classList.remove('pressed');
+    this.speechRecognitionService.endSpeechRecognition();
+    navigator.vibrate(50);
   }
 }

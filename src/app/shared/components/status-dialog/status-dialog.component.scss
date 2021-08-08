@@ -1,0 +1,28 @@
+@import "src/assets/styles/partials/variables";
+
+:host {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99;
+
+    border-radius: 0 0 1rem 1rem;
+    padding: 0.5rem 2rem;
+
+    &.success {
+        background: $green-color;
+    }
+
+    &.warning {
+        background: $yellow-color;
+    }
+
+    &.error {
+        background: $red-color;
+    }
+}
+
+fa-icon {
+    color: white;
+}

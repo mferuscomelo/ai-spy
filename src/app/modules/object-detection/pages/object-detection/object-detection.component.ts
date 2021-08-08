@@ -18,6 +18,8 @@ export class ObjectDetectionComponent implements OnInit {
 
   loadingMessage = 'Initializing';
   isLoaded = false;
+  isFound = false;
+  icon: 'success' | 'warning' | 'error' = 'error';
 
   constructor() {}
 
@@ -58,6 +60,7 @@ export class ObjectDetectionComponent implements OnInit {
       const model = await cocoSSD.load({
         base: 'lite_mobilenet_v2',
       });
+
       console.log('Successfully loaded model');
       this.isLoaded = true;
       this.parseFrame(this.videoElement.nativeElement, model);
@@ -76,6 +79,8 @@ export class ObjectDetectionComponent implements OnInit {
   }
 
   async renderPredictions(predictions: cocoSSD.DetectedObject[]) {
+    this.icon = 'error';
+
     const canvas = this.canvasElement.nativeElement;
     const video = this.videoElement.nativeElement;
 
@@ -112,6 +117,26 @@ export class ObjectDetectionComponent implements OnInit {
 
       ctx.fillStyle = '#000000';
       ctx.fillText(prediction.class, x, y);
+
+      if (prediction.class == 'person') {
+        this.foundObject(prediction.class);
+      }
     });
+  }
+
+  // QUESTION: Object being "found" every few seconds. How to solve?
+  foundObject(label: string) {
+    this.icon = 'success';
+
+    // Vibrate only if the object is in frame for 2 seconds
+    setTimeout(() => {
+      if (this.icon == 'success' && !this.isFound) {
+        navigator.vibrate(500);
+        this.isFound = true;
+
+        const msg = new SpeechSynthesisUtterance(`${label} found`);
+        window.speechSynthesis.speak(msg);
+      }
+    }, 2000);
   }
 }

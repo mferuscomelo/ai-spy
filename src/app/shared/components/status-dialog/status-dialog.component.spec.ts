@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SceneComponent } from './scene.component';
+import { StatusDialogComponent } from './status-dialog.component';
 
-describe('SceneComponent', () => {
-  let component: SceneComponent;
-  let fixture: ComponentFixture<SceneComponent>;
+describe('StatusDialogComponent', () => {
+  let component: StatusDialogComponent;
+  let fixture: ComponentFixture<StatusDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SceneComponent ]
+      declarations: [ StatusDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SceneComponent);
+    fixture = TestBed.createComponent(StatusDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

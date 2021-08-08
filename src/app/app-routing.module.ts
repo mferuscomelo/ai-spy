@@ -3,9 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'scene',
+    pathMatch: 'full',
+  },
+  {
     path: 'scene',
     loadChildren: () =>
-      import('./modules/scene/scene.module').then((m) => m.SceneModule),
+      import('./modules/object-detection/object-detection.module').then(
+        (m) => m.ObjectDetectionModule
+      ),
   },
 ];
 

@@ -1,1 +1,6 @@
 <router-outlet></router-outlet>
+
+<div class="settings">
+    <div #speechRecognitionIcon (mousedown)="startSpeechRecognition()" (mouseup)="endSpeechRecognition()"
+        title="Hold for speech recognition" id="speech-recognition-icon"></div>
+</div>

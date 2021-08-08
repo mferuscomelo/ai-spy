@@ -60,6 +60,7 @@ export class ObjectDetectionComponent implements OnInit {
       const model = await cocoSSD.load({
         base: 'lite_mobilenet_v2',
       });
+
       console.log('Successfully loaded model');
       this.isLoaded = true;
       this.parseFrame(this.videoElement.nativeElement, model);
@@ -132,9 +133,9 @@ export class ObjectDetectionComponent implements OnInit {
       if (this.icon == 'success' && !this.isFound) {
         navigator.vibrate(500);
         this.isFound = true;
-        // console.log('found');
-      } else {
-        this.isFound = false;
+
+        const msg = new SpeechSynthesisUtterance(`${label} found`);
+        window.speechSynthesis.speak(msg);
       }
     }, 2000);
   }

@@ -1,4 +1,4 @@
-<status-dialog [icon]="icon"></status-dialog>
+<status-dialog [icon]="icon" *ngIf="speechRecognitionService.objectToBeFound != ''"></status-dialog>
 
 <video #video hidden></video>
 <div class="camera">
@@ -8,3 +8,7 @@
         <p class="text-center">{{ loadingMessage }}</p>
     </div>
 </div>
+
+<p class="text-center white-color" *ngIf="speechRecognitionService.objectToBeFound != ''">
+    Looking for your {{ speechRecognitionService.objectToBeFound }}
+</p>

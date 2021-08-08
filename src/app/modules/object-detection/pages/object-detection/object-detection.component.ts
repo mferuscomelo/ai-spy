@@ -3,6 +3,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import '@tensorflow/tfjs-backend-cpu';
 import '@tensorflow/tfjs-backend-webgl';
 import * as cocoSSD from '@tensorflow-models/coco-ssd';
+import { MatDialog } from '@angular/material/dialog';
+import { PermissionsDialogComponent } from '../../components/permissions-dialog/permissions-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SpeechRecognitionService } from 'src/app/shared/services/speech-recognition.service';
 
 @Component({
   selector: 'object-detection',
@@ -21,15 +25,64 @@ export class ObjectDetectionComponent implements OnInit {
   isFound = false;
   icon: 'success' | 'warning' | 'error' = 'error';
 
-  constructor() {}
+  constructor(
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    public speechRecognitionService: SpeechRecognitionService
+  ) {}
 
   ngOnInit(): void {
     this.initObjectDetection();
   }
 
   async initObjectDetection() {
+    try {
+      await this.getPermissions();
+    } catch (error) {
+      // TODO: inform user
+      console.error(`Couldn't get required permissions`);
+      console.log('Exiting');
+      return;
+    }
+
     await this.initWebcam();
     await this.startPredictions();
+  }
+
+  async getPermissions() {
+    return await new Promise<void>(async (resolve, reject) => {
+      // Check if we have permission
+      if (!(await this.isPermissionGranted())) {
+        // We need to ask for permission
+        this.dialog
+          .open(PermissionsDialogComponent, {
+            disableClose: true,
+          })
+          .afterClosed()
+          .subscribe(async (result) => {
+            console.log('result: ', result);
+            if (result) {
+              // We can prompt for permissions
+              try {
+                await navigator.mediaDevices.getUserMedia({
+                  audio: true,
+                  video: true,
+                });
+                resolve();
+              } catch (error) {
+                this.showWarning();
+                reject();
+              }
+            } else {
+              // Permissions have been denied
+              this.showWarning();
+              reject();
+            }
+          });
+      } else {
+        resolve();
+      }
+    });
   }
 
   async initWebcam() {
@@ -118,7 +171,7 @@ export class ObjectDetectionComponent implements OnInit {
       ctx.fillStyle = '#000000';
       ctx.fillText(prediction.class, x, y);
 
-      if (prediction.class == 'person') {
+      if (prediction.class == this.speechRecognitionService.objectToBeFound) {
         this.foundObject(prediction.class);
       }
     });
@@ -138,5 +191,35 @@ export class ObjectDetectionComponent implements OnInit {
         window.speechSynthesis.speak(msg);
       }
     }, 2000);
+  }
+
+  showWarning() {
+    const message =
+      'Could not get the required permissions. This app may not work properly.';
+
+    // SnackBar
+    const alert = this.snackBar.open(message);
+    setTimeout(() => {
+      alert.dismiss();
+    }, 2000);
+
+    // Voice
+    const msg = new SpeechSynthesisUtterance(message);
+    window.speechSynthesis.speak(msg);
+  }
+
+  async isPermissionGranted() {
+    const cameraPermission = await navigator.permissions.query({
+      name: 'camera',
+    });
+
+    const microphonePermission = await navigator.permissions.query({
+      name: 'microphone',
+    });
+
+    return (
+      cameraPermission.state == 'granted' &&
+      microphonePermission.state == 'granted'
+    );
   }
 }

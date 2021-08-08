@@ -13,6 +13,10 @@ import {
   AngularFireAnalyticsModule,
   ScreenTrackingService,
 } from '@angular/fire/analytics';
+import {
+  AngularFirePerformanceModule,
+  PerformanceMonitoringService,
+} from '@angular/fire/performance';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,8 +33,9 @@ import {
     SharedModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAnalyticsModule,
+    AngularFirePerformanceModule,
   ],
-  providers: [ScreenTrackingService],
+  providers: [ScreenTrackingService, PerformanceMonitoringService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

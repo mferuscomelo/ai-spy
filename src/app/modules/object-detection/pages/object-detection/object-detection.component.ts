@@ -187,12 +187,18 @@ export class ObjectDetectionComponent implements OnInit {
   }
 
   showWarning() {
-    const alert = this.snackBar.open(
-      'Could not get the required permissions. This app may not work properly.'
-    );
+    const message =
+      'Could not get the required permissions. This app may not work properly.';
+
+    // SnackBar
+    const alert = this.snackBar.open(message);
     setTimeout(() => {
       alert.dismiss();
     }, 2000);
+
+    // Voice
+    const msg = new SpeechSynthesisUtterance(message);
+    window.speechSynthesis.speak(msg);
   }
 
   async isPermissionGranted() {

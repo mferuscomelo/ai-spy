@@ -47,6 +47,7 @@ export class ObjectDetectionComponent implements OnInit {
       return;
     }
 
+    // TODO: alert user if error
     await this.initWebcam();
     await this.startPredictions();
   }
@@ -99,6 +100,7 @@ export class ObjectDetectionComponent implements OnInit {
       const video = this.videoElement.nativeElement;
 
       video.srcObject = stream;
+      // TODO: Wait for `loadeddata` event
       video.play();
 
       console.log('Successfully started webcam');

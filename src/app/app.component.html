@@ -3,5 +3,7 @@
 <div class="settings">
     <div #speechRecognitionIcon (mousedown)="startSpeechRecognition()" (mouseup)="endSpeechRecognition()"
         (touchstart)="startSpeechRecognition()" (touchend)="endSpeechRecognition()" title="Hold for speech recognition"
-        id="speech-recognition-icon"></div>
+        id="speech-recognition-icon">
+        <fa-icon [icon]="['fas','microphone']"></fa-icon>
+    </div>
 </div>

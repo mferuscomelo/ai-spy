@@ -7,6 +7,7 @@ import {
 import {
   faCheck,
   faExclamation,
+  faMicrophone,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -17,6 +18,6 @@ import {
 })
 export class IconsModule {
   constructor(faIconLibrary: FaIconLibrary) {
-    faIconLibrary.addIcons(faCheck, faExclamation, faTimes);
+    faIconLibrary.addIcons(faCheck, faExclamation, faTimes, faMicrophone);
   }
 }

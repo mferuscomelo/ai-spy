@@ -1,3 +1,5 @@
+@import "src/assets/styles/partials/variables";
+
 :host {
     height: 100%;
 
@@ -14,7 +16,20 @@
     border-radius: 50%;
     border: 0.5rem solid white;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     &.pressed{
-        background-color: white;
+        border-color: $green-color;
+
+        fa-icon {
+            color: $green-color;
+        }
+    }
+
+    fa-icon {
+        font-size: 2rem;
+        color: white;
     }
 }

@@ -96,7 +96,7 @@ export class ObjectDetectionComponent implements OnInit {
   }
 
   async initWebcam() {
-    try {
+    return await new Promise<void>(async (resolve, reject) => {
       this.loadingMessage = 'Starting Webcam';
 
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -112,10 +112,8 @@ export class ObjectDetectionComponent implements OnInit {
       };
 
       console.log('Successfully started webcam');
-    } catch (error) {
-      console.log('Error starting webcam');
-      // TODO: display error message to user
-    }
+      resolve();
+    });
   }
 
   async startPredictions() {

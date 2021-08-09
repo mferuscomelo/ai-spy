@@ -48,8 +48,16 @@ export class ObjectDetectionComponent implements OnInit {
       return;
     }
 
-    // TODO: alert user if error
-    await this.initWebcam();
+    try {
+      await this.initWebcam();
+    } catch (error) {
+      console.error(`Couldn't start camera`);
+      this.showWarning(
+        'Could not start the camera. This app may not work properly.'
+      );
+      return;
+    }
+
     await this.startPredictions();
   }
 

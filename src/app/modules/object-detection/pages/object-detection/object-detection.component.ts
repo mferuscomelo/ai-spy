@@ -41,9 +41,10 @@ export class ObjectDetectionComponent implements OnInit {
     try {
       await this.getPermissions();
     } catch (error) {
-      // TODO: inform user
       console.error(`Couldn't get required permissions`);
-      console.log('Exiting');
+      this.showWarning(
+        'Could not get the required permissions. This app may not work properly.'
+      );
       return;
     }
 
@@ -73,12 +74,10 @@ export class ObjectDetectionComponent implements OnInit {
                 });
                 resolve();
               } catch (error) {
-                this.showWarning();
                 reject();
               }
             } else {
               // Permissions have been denied
-              this.showWarning();
               reject();
             }
           });
@@ -201,10 +200,7 @@ export class ObjectDetectionComponent implements OnInit {
     }, 2000);
   }
 
-  showWarning() {
-    const message =
-      'Could not get the required permissions. This app may not work properly.';
-
+  showWarning(message: string) {
     // SnackBar
     const alert = this.snackBar.open(message);
     setTimeout(() => {

@@ -107,8 +107,9 @@ export class ObjectDetectionComponent implements OnInit {
       const video = this.videoElement.nativeElement;
 
       video.srcObject = stream;
-      // TODO: Wait for `loadeddata` event
-      video.play();
+      video.onloadeddata = () => {
+        video.play();
+      };
 
       console.log('Successfully started webcam');
     } catch (error) {

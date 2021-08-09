@@ -41,13 +41,23 @@ export class ObjectDetectionComponent implements OnInit {
     try {
       await this.getPermissions();
     } catch (error) {
-      // TODO: inform user
       console.error(`Couldn't get required permissions`);
-      console.log('Exiting');
+      this.showWarning(
+        'Could not get the required permissions. This app may not work properly.'
+      );
       return;
     }
 
-    await this.initWebcam();
+    try {
+      await this.initWebcam();
+    } catch (error) {
+      console.error(`Couldn't start camera`);
+      this.showWarning(
+        'Could not start the camera. This app may not work properly.'
+      );
+      return;
+    }
+
     await this.startPredictions();
   }
 
@@ -72,12 +82,10 @@ export class ObjectDetectionComponent implements OnInit {
                 });
                 resolve();
               } catch (error) {
-                this.showWarning();
                 reject();
               }
             } else {
               // Permissions have been denied
-              this.showWarning();
               reject();
             }
           });
@@ -88,7 +96,7 @@ export class ObjectDetectionComponent implements OnInit {
   }
 
   async initWebcam() {
-    try {
+    return await new Promise<void>(async (resolve, reject) => {
       this.loadingMessage = 'Starting Webcam';
 
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -99,13 +107,13 @@ export class ObjectDetectionComponent implements OnInit {
       const video = this.videoElement.nativeElement;
 
       video.srcObject = stream;
-      video.play();
+      video.onloadeddata = () => {
+        video.play();
+      };
 
       console.log('Successfully started webcam');
-    } catch (error) {
-      console.log('Error starting webcam');
-      // TODO: display error message to user
-    }
+      resolve();
+    });
   }
 
   async startPredictions() {
@@ -199,10 +207,7 @@ export class ObjectDetectionComponent implements OnInit {
     }, 2000);
   }
 
-  showWarning() {
-    const message =
-      'Could not get the required permissions. This app may not work properly.';
-
+  showWarning(message: string) {
     // SnackBar
     const alert = this.snackBar.open(message);
     setTimeout(() => {

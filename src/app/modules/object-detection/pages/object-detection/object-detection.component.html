@@ -9,6 +9,11 @@
     </div>
 </div>
 
-<p class="text-center white-color" *ngIf="speechRecognitionService.objectToBeFound != ''">
-    Looking for your {{ speechRecognitionService.objectToBeFound }}
-</p>
+<div *ngIf="speechRecognitionService.objectToBeFound != ''">
+    <p class="text-center white-color" *ngIf="!isFound">
+        Looking for your {{ speechRecognitionService.objectToBeFound }}
+    </p>
+    <p class="text-center white-color" *ngIf="isFound">
+        Found your {{ speechRecognitionService.objectToBeFound }}
+    </p>
+</div>

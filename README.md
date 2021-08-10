@@ -12,6 +12,7 @@ Created as part of the MIT FutureMakers Applied Deep Learning program, developed
 [![](https://github.com/rhearjethvani.png?size=50 "Rhea Jethvani")](https://https://github.com/rhearjethvani/)
 [![](https://github.com/mikemaid.png?size=50 "Aaron Qi")](https://github.com/mikemaid)
 [![](https://github.com/annabellatian.png?size=50 "Annabella Tian")](https://github.com/annabellatian)
+[<img src="https://github.com/tiffkuang.png" height="50" title="Tiffany Kuang">](https://github.com/tiffkuang)
 
 ## Mentors
 [<img src="https://github.com/sazidabintaislam.png" height="50" title="Sazida Binta Islam">](https://github.com/sazidabintaislam)

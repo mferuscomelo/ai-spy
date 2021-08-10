@@ -23,8 +23,13 @@ export class ObjectDetectionComponent implements OnInit {
 
   loadingMessage = 'Initializing';
   isLoaded = false;
+
   isFound = false;
+
   icon: 'success' | 'warning' | 'error' = 'error';
+
+  threshold = 0.06;
+  previousArea = 0;
 
   constructor(
     private dialog: MatDialog,
@@ -149,45 +154,80 @@ export class ObjectDetectionComponent implements OnInit {
 
     const ctx = canvas.getContext('2d')!;
 
-    const width = video.videoWidth;
-    const height = video.videoHeight;
+    const videoWidth = video.videoWidth;
+    const videoHeight = video.videoHeight;
+    const videoArea = videoWidth * videoHeight;
 
-    canvas.width = width;
-    canvas.height = height;
+    canvas.width = videoWidth;
+    canvas.height = videoHeight;
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     const font = '16px sans-serif';
     ctx.font = font;
     ctx.textBaseline = 'top';
-    ctx.drawImage(video, 0, 0, width, height);
+    ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
 
     const objectToBeFound = this.speechRecognitionService.objectToBeFound;
+    let object: cocoSSD.DetectedObject | undefined;
     if (objectToBeFound == '') {
-      // If object hasn't been found, show all object labels
+      // If no object is being looked for, show all object labels
       predictions.forEach((prediction) => {
         this.displayBoundingBox(prediction, ctx, font);
 
         if (prediction.class == objectToBeFound) {
-          this.foundObject(prediction.class);
+          this.foundObject(prediction);
+          object = prediction;
         }
       });
     } else {
-      // Else show only the found object label
+      // Else show only the searched object label
       const prediction = predictions.find(
         (prediction) => prediction.class == objectToBeFound
       );
       if (prediction) {
         this.displayBoundingBox(prediction, ctx, font);
 
+        // Check if the object has been found
         if (prediction.class == objectToBeFound) {
-          this.foundObject(prediction.class);
+          this.foundObject(prediction);
+          object = prediction;
         }
       }
+    }
+
+    if (this.isFound && object) {
+      // Check for size of the object
+      const x = object.bbox[0];
+      const y = object.bbox[1];
+      const w = object.bbox[2];
+      const h = object.bbox[3];
+
+      // Calculate area
+      const currentArea = w * h;
+      const normalizedArea = currentArea / videoArea;
+
+      // console.log(normalizedArea);
+
+      if (
+        this.previousArea - normalizedArea >
+        this.threshold * normalizedArea
+      ) {
+        console.log('Getting smaller');
+      } else if (
+        this.previousArea - normalizedArea <
+        -(this.threshold * normalizedArea)
+      ) {
+        console.log('Getting bigger');
+      } else {
+        console.log('Has not changed');
+      }
+
+      this.previousArea = normalizedArea;
     }
   }
 
   // QUESTION: Object being "found" every few seconds. How to solve?
-  foundObject(label: string) {
+  foundObject(object: cocoSSD.DetectedObject) {
     this.icon = 'success';
 
     // Vibrate only if the object is in frame for 2 seconds
@@ -196,11 +236,11 @@ export class ObjectDetectionComponent implements OnInit {
         navigator.vibrate(500);
         this.isFound = true;
 
-        const msg = new SpeechSynthesisUtterance(`${label} found`);
+        const msg = new SpeechSynthesisUtterance(`${object.class} found`);
         window.speechSynthesis.speak(msg);
 
         this.analytics.logEvent('found_object', {
-          object_name: label,
+          object_name: object.class,
         });
       }
     }, 2000);

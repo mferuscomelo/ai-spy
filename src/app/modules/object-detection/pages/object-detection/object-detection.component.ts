@@ -161,30 +161,29 @@ export class ObjectDetectionComponent implements OnInit {
     ctx.textBaseline = 'top';
     ctx.drawImage(video, 0, 0, width, height);
 
-    predictions.forEach((prediction) => {
-      const x = prediction.bbox[0];
-      const y = prediction.bbox[1];
-      const w = prediction.bbox[2];
-      const h = prediction.bbox[3];
+    const objectToBeFound = this.speechRecognitionService.objectToBeFound;
+    if (objectToBeFound == '') {
+      // If object hasn't been found, show all object labels
+      predictions.forEach((prediction) => {
+        this.displayBoundingBox(prediction, ctx, font);
 
-      // Bounding box
-      ctx.strokeStyle = '#00FFFF';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(x, y, w, h);
+        if (prediction.class == objectToBeFound) {
+          this.foundObject(prediction.class);
+        }
+      });
+    } else {
+      // Else show only the found object label
+      const prediction = predictions.find(
+        (prediction) => prediction.class == objectToBeFound
+      );
+      if (prediction) {
+        this.displayBoundingBox(prediction, ctx, font);
 
-      // Label background
-      ctx.fillStyle = '#00FFFF';
-      const textWidth = ctx.measureText(prediction.class).width;
-      const textHeight = parseInt(font, 10); // base 10
-      ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
-
-      ctx.fillStyle = '#000000';
-      ctx.fillText(prediction.class, x, y);
-
-      if (prediction.class == this.speechRecognitionService.objectToBeFound) {
-        this.foundObject(prediction.class);
+        if (prediction.class == objectToBeFound) {
+          this.foundObject(prediction.class);
+        }
       }
-    });
+    }
   }
 
   // QUESTION: Object being "found" every few seconds. How to solve?
@@ -205,6 +204,31 @@ export class ObjectDetectionComponent implements OnInit {
         });
       }
     }, 2000);
+  }
+
+  displayBoundingBox(
+    prediction: cocoSSD.DetectedObject,
+    ctx: CanvasRenderingContext2D,
+    font: string
+  ) {
+    const x = prediction.bbox[0];
+    const y = prediction.bbox[1];
+    const w = prediction.bbox[2];
+    const h = prediction.bbox[3];
+
+    // Bounding box
+    ctx.strokeStyle = '#00FFFF';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x, y, w, h);
+
+    // Label background
+    ctx.fillStyle = '#00FFFF';
+    const textWidth = ctx.measureText(prediction.class).width;
+    const textHeight = parseInt(font, 10); // base 10
+    ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
+
+    ctx.fillStyle = '#000000';
+    ctx.fillText(prediction.class, x, y);
   }
 
   showWarning(message: string) {

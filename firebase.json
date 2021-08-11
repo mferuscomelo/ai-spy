@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target": "seeing-ai",
+      "target": "ai-spy",
       "public": "dist",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "headers": [

@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: 'AIzaSyAs--GjtvtvrKgK5XZ3Wxi-fs7ytEzQkoU',
-    authDomain: 'seeing-ai.firebaseapp.com',
-    projectId: 'seeing-ai',
-    storageBucket: 'seeing-ai.appspot.com',
-    messagingSenderId: '315027150120',
-    appId: '1:315027150120:web:0ffa12c7204c385a42ec1d',
-    measurementId: 'G-PQZVJ1N9EE',
+    apiKey: 'AIzaSyBnfgyZTii-8jZB4_pjDbZeQXkRMGIUZDk',
+    authDomain: 'ai-spy-6003d.firebaseapp.com',
+    projectId: 'ai-spy-6003d',
+    storageBucket: 'ai-spy-6003d.appspot.com',
+    messagingSenderId: '238070606539',
+    appId: '1:238070606539:web:829d2fb249e742c595494e',
+    measurementId: 'G-S4N5J0DZ5X',
   },
 };
 

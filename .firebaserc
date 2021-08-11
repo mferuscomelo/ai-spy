@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "seeing-ai"
+    "default": "ai-spy-6003d"
   },
   "targets": {
-    "seeing-ai": {
+    "ai-spy-6003d": {
       "hosting": {
-        "seeing-ai": [
-          "seeing-ai"
+        "ai-spy": [
+          "ai-spy-6003d"
         ]
       }
     }

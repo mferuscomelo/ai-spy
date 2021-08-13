@@ -21,9 +21,89 @@ Created as part of the MIT FutureMakers Applied Deep Learning program, developed
 [<img src="https://github.com/sazidabintaislam.png" height="50" title="Sazida Binta Islam">](https://github.com/sazidabintaislam)
 [<img src="https://github.com/ShoumikMajumdar.png" height="50" title="Shoumik Majumdar">](https://github.com/ShoumikMajumdar)
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Object Labels
+Our app can identify the following 90 objects: 
+- Person
+- Bicycle
+- Car
+- Motorcycle
+- Airplane
+- Bus
+- Train
+- Truck
+- Boat
+- Traffic Light
+- Fire Hydrant
+- Stop Sign
+- Parking Meter
+- Bench
+- Bird
+- Cat
+- Dog
+- Horse
+- Sheep
+- Cow
+- Elephant
+- Bear
+- Zebra
+- Giraffe
+- Backpack
+- Umbrella
+- Handbag
+- Tie
+- Suitcase
+- Frisbee
+- Skis
+- Snowboard
+- Sports Ball
+- Kite
+- Baseball Bat
+- Baseball Glove
+- Skateboard
+- Surfboard
+- Tennis Racket
+- Bottle
+- Wine Glass
+- Cup
+- Fork
+- Knife
+- Spoon
+- Bowl
+- Banana
+- Apple
+- Sandwich
+- Orange
+- Broccoli
+- Carrot
+- Hot Dog
+- Pizza
+- Donut
+- Cake
+- Chair
+- Couch
+- Potted Plant
+- Bed
+- Dining Table
+- Toilet
+- TV
+- Laptop
+- Mouse
+- Remote
+- Keyboard
+- Cell Phone
+- Microwave
+- Oven
+- Toaster
+- Sink
+- Refrigerator
+- Book
+- Clock
+- Vase
+- Scissors
+- Teddy Bear
+- Hair Drier
+- Toothbrush
 
 ## Code scaffolding
 

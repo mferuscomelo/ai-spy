@@ -21,6 +21,9 @@ Created as part of the MIT FutureMakers Applied Deep Learning program, developed
 [<img src="https://github.com/sazidabintaislam.png" height="50" title="Sazida Binta Islam">](https://github.com/sazidabintaislam)
 [<img src="https://github.com/ShoumikMajumdar.png" height="50" title="Shoumik Majumdar">](https://github.com/ShoumikMajumdar)
 
+## Demo
+A demo video of the app can be found here: [https://youtu.be/D75U10tBk1E](https://youtu.be/D75U10tBk1E)
+
 ## Run the project
 1. Clone the project onto your hard drive
 2. Execute `npm install` in your project folder to install all Node modules

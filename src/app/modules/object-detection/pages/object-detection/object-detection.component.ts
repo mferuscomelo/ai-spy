@@ -275,7 +275,7 @@ export class ObjectDetectionComponent implements OnInit {
     let directions = '';
     switch (quadrant) {
       case -1:
-        directions = 'Turn slightly right';
+        directions = 'Turn slightly left';
         break;
 
       case 0:
@@ -283,7 +283,7 @@ export class ObjectDetectionComponent implements OnInit {
         break;
 
       case 1:
-        directions = 'Turn slightly left';
+        directions = 'Turn slightly right';
         break;
 
       default:

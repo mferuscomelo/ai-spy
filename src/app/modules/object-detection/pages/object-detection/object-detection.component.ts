@@ -24,6 +24,7 @@ export class ObjectDetectionComponent implements OnInit {
   loadingMessage = 'Initializing';
   isLoaded = false;
   isFound = false;
+  isSayingDirections = false;
   icon: 'success' | 'warning' | 'error' = 'error';
 
   constructor(
@@ -182,6 +183,18 @@ export class ObjectDetectionComponent implements OnInit {
         if (prediction.class == objectToBeFound) {
           this.foundObject(prediction.class);
         }
+
+        if (this.isFound) {
+          // Get the quadrant which the object is in
+          // -1: Left
+          // 0: Centered
+          // 1: Right
+          const quadrant = this.getQuadrant(prediction, 0.05);
+
+          if (!this.isSayingDirections) {
+            this.navigateUser(quadrant);
+          }
+        }
       }
     }
   }
@@ -206,15 +219,21 @@ export class ObjectDetectionComponent implements OnInit {
     }, 2000);
   }
 
+  getBoundingBox(prediction: cocoSSD.DetectedObject) {
+    const x = prediction.bbox[0];
+    const y = prediction.bbox[1];
+    const w = prediction.bbox[2];
+    const h = prediction.bbox[3];
+
+    return { x, y, w, h };
+  }
+
   displayBoundingBox(
     prediction: cocoSSD.DetectedObject,
     ctx: CanvasRenderingContext2D,
     font: string
   ) {
-    const x = prediction.bbox[0];
-    const y = prediction.bbox[1];
-    const w = prediction.bbox[2];
-    const h = prediction.bbox[3];
+    const { x, y, w, h } = this.getBoundingBox(prediction);
 
     // Bounding box
     ctx.strokeStyle = '#00FFFF';
@@ -229,6 +248,55 @@ export class ObjectDetectionComponent implements OnInit {
 
     ctx.fillStyle = '#000000';
     ctx.fillText(prediction.class, x, y);
+  }
+
+  getQuadrant(
+    prediction: cocoSSD.DetectedObject,
+    threshold: number
+  ): -1 | 0 | 1 {
+    const { x, y, w, h } = this.getBoundingBox(prediction);
+    const video = this.videoElement.nativeElement;
+
+    // Calculate the center of the bounding box and normalize the coords
+    const bboxCenterX = (x + w / 2) / video.videoWidth;
+
+    if (bboxCenterX > 0.5 + threshold) {
+      return 1;
+    } else if (bboxCenterX < 0.5 - threshold) {
+      return -1;
+    } else {
+      return 0;
+    }
+  }
+
+  navigateUser(quadrant: -1 | 0 | 1) {
+    this.isSayingDirections = true;
+
+    let directions = '';
+    switch (quadrant) {
+      case -1:
+        directions = 'Turn slightly right';
+        break;
+
+      case 0:
+        directions = 'Go forward';
+        break;
+
+      case 1:
+        directions = 'Turn slightly left';
+        break;
+
+      default:
+        directions = 'Go forward';
+        break;
+    }
+
+    // Voice
+    const msg = new SpeechSynthesisUtterance(directions);
+    window.speechSynthesis.speak(msg);
+    msg.onend = (event) => {
+      this.isSayingDirections = false;
+    };
   }
 
   showWarning(message: string) {

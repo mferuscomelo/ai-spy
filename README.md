@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## SureStart Create-a-thon
 
-Created as part of the MIT FutureMakers Applied Deep Learning program, developed through a collaboration between [SureStart](https://mysurestart.com/) and the [MIT RAISE (Responsible AI for Social Empowerment and Education) Initiative](https://raise.mit.edu/). Team name: InnovAIt!
+Created as part of the MIT FutureMakers Applied Deep Learning program, developed through a collaboration between [SureStart](https://mysurestart.com/) and the [MIT RAISE (Responsible AI for Social Empowerment and Education) Initiative](https://raise.mit.edu/). Team name: InnovAIte!
 
 ## Team
 

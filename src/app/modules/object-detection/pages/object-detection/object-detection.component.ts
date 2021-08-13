@@ -295,7 +295,9 @@ export class ObjectDetectionComponent implements OnInit {
     const msg = new SpeechSynthesisUtterance(directions);
     window.speechSynthesis.speak(msg);
     msg.onend = (event) => {
-      this.isSayingDirections = false;
+      setTimeout(() => {
+        this.isSayingDirections = false;
+      }, 1000);
     };
   }
 

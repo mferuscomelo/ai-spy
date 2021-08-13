@@ -21,6 +21,15 @@ Created as part of the MIT FutureMakers Applied Deep Learning program, developed
 [<img src="https://github.com/sazidabintaislam.png" height="50" title="Sazida Binta Islam">](https://github.com/sazidabintaislam)
 [<img src="https://github.com/ShoumikMajumdar.png" height="50" title="Shoumik Majumdar">](https://github.com/ShoumikMajumdar)
 
+## Run the project
+1. Clone the project onto your hard drive
+2. Execute `npm install` in your project folder to install all Node modules
+3. Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+4. Allow access to your camera and microphone
+5. [Choose an object to search for](#object-labels)
+6. Press and hold the microphone button and say, “Find my _____”
+7. Pan around with your camera until the object is in view
+8. Object should be found!
 
 ## Object Labels
 Our app can identify the following 90 objects: 
